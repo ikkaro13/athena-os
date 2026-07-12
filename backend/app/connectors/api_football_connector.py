@@ -12,7 +12,22 @@ class ApiFootballConnector(BaseConnector):
         pass
 
     def get_team(self, team: str):
-        pass
+
+        url = f"{settings.API_FOOTBALL_URL}/teams"
+
+        headers = {
+            "x-apisports-key": settings.API_FOOTBALL_KEY
+        }
+
+        params = {
+            "search": team
+        }
+
+        return self.client.get(
+            url=url,
+            headers=headers,
+            params=params
+        )
 
     def get_league(self, league: str):
 
@@ -46,5 +61,22 @@ class ApiFootballConnector(BaseConnector):
                     "country": item["country"]["name"],
                     "type": league["type"]
                 }
+            
+    def find_team(self, team_name: str):
 
-        return None
+        response = self.get_team(team_name)
+
+        if not response:
+            return None
+
+        if response["results"] == 0:
+            return None
+
+        team = response["response"][0]["team"]
+
+        return {
+            "id": team["id"],
+            "name": team["name"],
+            "country": team["country"],
+            "code": team["code"]
+        }        
