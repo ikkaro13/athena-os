@@ -1,6 +1,7 @@
 from backend.app.connectors.base_connector import BaseConnector
 from backend.app.core.http_client import HttpClient
 from backend.config import settings
+from backend.app.models.team import Team
 
 
 class ApiFootballConnector(BaseConnector):
@@ -74,9 +75,9 @@ class ApiFootballConnector(BaseConnector):
 
         team = response["response"][0]["team"]
 
-        return {
-            "id": team["id"],
-            "name": team["name"],
-            "country": team["country"],
-            "code": team["code"]
-        }        
+        return Team(
+            id=team["id"],
+            name=team["name"],
+            country=team["country"],
+            code=team["code"]
+        )
