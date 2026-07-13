@@ -29,6 +29,43 @@ class ApiFootballConnector(BaseConnector):
             headers=headers,
             params=params
         )
+    
+    def get_fixtures(self, team_id: int):
+
+        url = f"{settings.API_FOOTBALL_URL}/fixtures"
+
+        headers = {
+            "x-apisports-key": settings.API_FOOTBALL_KEY
+        }
+
+        params = {
+            "team": team_id,
+            "season": 2024
+        }
+
+        return self.client.get(
+            url=url,
+            headers=headers,
+            params=params
+        )
+    
+    def get_statistics(self, fixture_id: int):
+
+        url = f"{settings.API_FOOTBALL_URL}/fixtures/statistics"
+
+        headers = {
+            "x-apisports-key": settings.API_FOOTBALL_KEY
+        }
+
+        params = {
+            "fixture": fixture_id
+        }
+
+        return self.client.get(
+            url=url,
+            headers=headers,
+            params=params
+        )
 
     def get_league(self, league: str):
 

@@ -1,7 +1,8 @@
-from backend.app.connectors.api_football_connector import ApiFootballConnector
+from backend.app.repositories.statistics_repository import StatisticsRepository
 
-connector = ApiFootballConnector()
+repository = StatisticsRepository()
 
-team = connector.find_team("Liverpool")
+statistics = repository.get_statistics(1208022)
 
-print(team)
+for stat in statistics:
+    print(stat)
