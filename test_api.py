@@ -1,8 +1,10 @@
-from backend.app.repositories.statistics_repository import StatisticsRepository
+from backend.app.services.match_context_service import MatchContextService
 
-repository = StatisticsRepository()
+service = MatchContextService()
 
-statistics = repository.get_statistics(1208022)
+context = service.build(
+    "Liverpool",
+    "Chelsea"
+)
 
-for stat in statistics:
-    print(stat)
+print(context)
